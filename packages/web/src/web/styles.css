@@ -1,0 +1,210 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Playfair Display", "Times New Roman", serif;
+  --font-sans: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* PixelPerfect brand tokens */
+  --color-canvas: var(--canvas);
+  --color-canvas-2: var(--canvas-2);
+  --color-canvas-3: var(--canvas-3);
+  --color-charcoal: var(--charcoal);
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-gold-dim: var(--gold-dim);
+  --color-cream: var(--cream);
+  --color-ivory: var(--ivory-text);
+  --color-muted-text: var(--muted-text);
+}
+
+:root {
+  --radius: 0.125rem;
+
+  /* PixelPerfect brand palette — dark luxury, always-on */
+  --canvas: #0b1220;
+  --canvas-2: #0f172a;
+  --canvas-3: #14223b;
+  --charcoal: #1a2438;
+  --gold: #c5a059;
+  --gold-bright: #e4c989;
+  --gold-dim: #8a6f3c;
+  --cream: #f3ebdd;
+  --ivory-text: #edeff4;
+  --muted-text: #8c97ae;
+
+  --background: var(--canvas);
+  --foreground: var(--ivory-text);
+  --card: var(--charcoal);
+  --card-foreground: var(--ivory-text);
+  --popover: var(--canvas-3);
+  --popover-foreground: var(--ivory-text);
+  --primary: var(--gold);
+  --primary-foreground: #14100a;
+  --secondary: var(--canvas-3);
+  --secondary-foreground: var(--ivory-text);
+  --muted: var(--canvas-3);
+  --muted-foreground: var(--muted-text);
+  --accent: var(--gold);
+  --accent-foreground: #14100a;
+  --destructive: #b3532f;
+  --border: rgba(197, 160, 89, 0.18);
+  --input: rgba(197, 160, 89, 0.22);
+  --ring: rgba(197, 160, 89, 0.45);
+}
+
+/* Brand is dark-mode only by design — .dark mirrors :root so nothing shifts */
+.dark {
+  --background: var(--canvas);
+  --foreground: var(--ivory-text);
+  --card: var(--charcoal);
+  --card-foreground: var(--ivory-text);
+  --popover: var(--canvas-3);
+  --popover-foreground: var(--ivory-text);
+  --primary: var(--gold);
+  --primary-foreground: #14100a;
+  --secondary: var(--canvas-3);
+  --secondary-foreground: var(--ivory-text);
+  --muted: var(--canvas-3);
+  --muted-foreground: var(--muted-text);
+  --accent: var(--gold);
+  --accent-foreground: #14100a;
+  --destructive: #b3532f;
+  --border: rgba(197, 160, 89, 0.18);
+  --input: rgba(197, 160, 89, 0.22);
+  --ring: rgba(197, 160, 89, 0.45);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    background: var(--canvas);
+    scroll-behavior: auto;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    background: radial-gradient(ellipse 120% 80% at 50% -10%, #17233c 0%, var(--canvas) 55%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--gold);
+    color: #14100a;
+  }
+}
+
+@layer utilities {
+  .hairline {
+    border: 1px solid var(--border);
+  }
+  .hairline-t {
+    border-top: 1px solid var(--border);
+  }
+  .hairline-b {
+    border-bottom: 1px solid var(--border);
+  }
+  .text-gold {
+    color: var(--gold);
+  }
+  .bg-noise {
+    background-image: radial-gradient(rgba(197, 160, 89, 0.06) 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+  }
+  .gold-gradient-text {
+    background: linear-gradient(115deg, var(--gold-dim) 0%, var(--gold-bright) 40%, var(--gold) 65%, var(--cream) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* Custom cursor */
+html.pp-cursor-enabled,
+html.pp-cursor-enabled * {
+  cursor: none !important;
+}
+
+.pp-cursor-dot,
+.pp-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 50%;
+  will-change: transform;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+
+.pp-cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--gold-bright);
+  box-shadow: 0 0 8px 2px rgba(197, 160, 89, 0.6);
+}
+
+.pp-cursor-ring {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(197, 160, 89, 0.55);
+  transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+}
+
+/* Marquee */
+@keyframes pp-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.pp-marquee-track {
+  animation: pp-marquee 32s linear infinite;
+}
+
+/* Signature draw */
+@keyframes pp-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
